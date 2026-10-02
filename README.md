@@ -2,7 +2,14 @@
 
 **Marcus Goh**, 38, is an ex-hardware engineer who tests the newest AI on Singapore's toughest critics: void-deck uncles, kopitiam aunties and hawkers. He is not real. He was built for a class exercise in the SMU MBAI module **AI-Powered Marketing (MKTG 644)**, end to end, by **Claude Code**: planning, browser automation in Google Flow, editing, motion graphics, sound and QA.
 
-▶ **Presentation (live):** **https://priest-mbai.github.io/kampung-futurist/docs/presentation/** (← → to move between pages, F for fullscreen, `#2` jumps to page 2). Source: [`docs/presentation/index.html`](docs/presentation/index.html).
+## ▶ [View the interactive overview](https://priest-mbai.github.io/kampung-futurist/docs/presentation/)
+
+**Start here:** [priest-mbai.github.io/kampung-futurist/docs/presentation/](https://priest-mbai.github.io/kampung-futurist/docs/presentation/) gives a two-page interactive overview of the exercise. It opens in any browser, with nothing to download:
+
+- **Page 1:** meet Marcus, and play all three episodes (EP1 first).
+- **Page 2:** walk through the workflow diagram, see what broke and how it was fixed, and copy **the original prompt** that started it all.
+
+Use ← → to change pages and F for fullscreen. Source: [`docs/presentation/index.html`](docs/presentation/index.html).
 
 | Episode | Length | What it is |
 |---|---|---|
