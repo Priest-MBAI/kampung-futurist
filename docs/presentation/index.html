@@ -76,6 +76,22 @@
   .cta a { color: var(--ink); font-weight: 800; text-decoration: none; border-bottom: 2px solid var(--kopi); }
   .cta div { font-size: 17px; color: #d4dbe6; }
 
+  /* The prompt */
+  .hdr-r { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
+  .prompt-btn { font: 700 17px var(--mono); color: var(--bg); background: var(--kopi); border: 0; border-radius: 12px; padding: 12px 18px;
+    cursor: pointer; transition: transform .15s; } .prompt-btn:hover { transform: translateY(-2px); }
+  .stat.link { cursor: pointer; } .stat.link span { color: var(--kopi); text-decoration: underline; text-underline-offset: 3px; }
+  #modal { position: absolute; inset: 0; z-index: 5; background: rgba(2,4,8,.78); display: none; place-items: center; }
+  #modal.on { display: grid; }
+  .sheet { width: 1240px; max-height: 920px; display: flex; flex-direction: column; gap: 14px; background: var(--panel); border: 1px solid rgba(224,168,94,.45);
+    border-radius: 20px; padding: 30px 34px; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+  .sheet-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+  .sheet h3 { font-size: 34px; font-weight: 900; letter-spacing: -.01em; } .sheet .note { color: var(--mute); font-size: 17px; margin-top: 4px; }
+  .sheet pre { font: 400 19px/1.55 var(--mono); color: #e6ecf3; background: #070b12; border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px 26px; white-space: pre-wrap; overflow: auto; }
+  .sheet-btns { display: flex; gap: 10px; } .sheet-btns button { font: 700 16px var(--mono); white-space: nowrap; border-radius: 10px; padding: 10px 16px; cursor: pointer;
+    border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); } .sheet-btns .copy { background: var(--kopi); color: var(--bg); border-color: var(--kopi); }
+
   /* Nav */
   nav { position: fixed; right: 18px; bottom: 16px; display: flex; gap: 8px; align-items: center; z-index: 9; }
   nav button { background: rgba(14,21,32,.85); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; width: 40px; height: 36px;
@@ -128,7 +144,7 @@
             <div class="stat"><b>3</b><span>episodes · 88s of video</span></div>
             <div class="stat"><b>19</b><span>AI clips generated in Flow</span></div>
             <div class="stat"><b>30</b><span>word-synced SFX hits</span></div>
-            <div class="stat"><b>1</b><span>prompt to start: plan mode</span></div>
+            <div class="stat link" data-prompt role="button" tabindex="0"><b>1</b><span>prompt to start: see it</span></div>
           </div>
         </section>
         <section class="card">
@@ -151,7 +167,7 @@
         <h1>How I built him with <b>Claude Code</b></h1>
         <div class="sub">I wrote one brief and approved the spend; Claude Code did the interview, browser work, edit and QA. Click the diagram's views to walk it.</div>
       </div>
-      <div class="pageno">02 / 02</div>
+      <div class="hdr-r"><div class="pageno">02 / 02</div><button class="prompt-btn" data-prompt>📋 The prompt I used</button></div>
     </header>
     <div class="p2">
       <section class="card diagram">
@@ -182,6 +198,27 @@
       </div>
     </div>
   </section>
+
+  <div id="modal" role="dialog" aria-modal="true" aria-labelledby="prompt-title">
+    <div class="sheet">
+      <div class="sheet-top">
+        <div><h3 id="prompt-title">The one prompt that started it</h3>
+          <div class="note">Typed into Claude Code on 25 Sep, word for word. Claude Code then interviewed me one question at a time and planned the rest.</div></div>
+        <div class="sheet-btns"><button class="copy" id="copy">Copy prompt</button><button id="close" aria-label="Close">✕</button></div>
+      </div>
+<pre id="prompt-text">/marketing:draft-content HI Claude,
+for the class exercise today, we will need to:
+
+* create my own virtual influencer
+   * needs to have its own voice, styling, personality, a unique factor that compels the audience to follow/or know more about him/her
+* a 15 secs 16:9 video of the influencer introducing himself in his voice and a CTA liner for viewers. Something like a sizzle reel.
+* background should be in a natural (real location) environment setting, filled with ambient noise and foley sounds (if needed).
+
+If you need more information, ask me questions (one-by one) in an interview style, until you have enough context to execute the task
+/goal
+definition of done: the video showcase an influencer that does not look AI-generated and viewers are captivated with the influencer, the content he/she's into and the video is well executed.</pre>
+    </div>
+  </div>
 </div>
 
 <nav aria-label="Slides">
@@ -209,11 +246,28 @@
   document.getElementById("next").onclick = () => go(cur + 1);
   document.getElementById("fs").onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
   addEventListener("keydown", (e) => {
+    if (modal.classList.contains("on")) { if (e.key === "Escape") closeModal(); return; }
     if (e.target.closest && e.target.closest("iframe, video")) return;
     if (["ArrowRight", "PageDown", " "].includes(e.key)) { e.preventDefault(); go(cur + 1); }
     if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); go(cur - 1); }
     if (e.key === "f" || e.key === "F") document.getElementById("fs").click();
   });
+
+  // The prompt
+  const modal = document.getElementById("modal"), copyBtn = document.getElementById("copy");
+  const openModal = () => { document.getElementById("vid").pause(); modal.classList.add("on"); copyBtn.focus(); };
+  const closeModal = () => modal.classList.remove("on");
+  document.querySelectorAll("[data-prompt]").forEach((b) => {
+    b.onclick = openModal; b.onkeydown = (e) => { if (e.key === "Enter") openModal(); };
+  });
+  document.getElementById("close").onclick = closeModal;
+  modal.onclick = (e) => { if (e.target === modal) closeModal(); };
+  copyBtn.onclick = async () => {
+    const text = document.getElementById("prompt-text").textContent;
+    try { await navigator.clipboard.writeText(text); copyBtn.textContent = "Copied ✓"; }
+    catch { getSelection().selectAllChildren(document.getElementById("prompt-text")); copyBtn.textContent = "Selected: press ⌘C"; }
+    setTimeout(() => copyBtn.textContent = "Copy prompt", 2000);
+  };
 
   // Deep link: index.html#2 opens page 2
   if (location.hash === "#2") go(1);
