@@ -1,6 +1,6 @@
 # The Kampung Futurist: a virtual influencer built with Claude Code
 
-**Marcus Goh**, 38, is an ex-hardware engineer who tests the newest AI on Singapore's toughest critics: void-deck uncles, kopitiam aunties and hawkers. He is not real. He was built for an SMU MBAI class exercise, end to end, by **Claude Code**: planning, browser automation in Google Flow, editing, motion graphics, sound and QA.
+**Marcus Goh**, 38, is an ex-hardware engineer who tests the newest AI on Singapore's toughest critics: void-deck uncles, kopitiam aunties and hawkers. He is not real. He was built for a class exercise in the SMU MBAI module **AI-Powered Marketing (MKTG 644)**, end to end, by **Claude Code**: planning, browser automation in Google Flow, editing, motion graphics, sound and QA.
 
 ▶ **Presentation (live):** **https://priest-mbai.github.io/kampung-futurist/docs/presentation/** (← → to move between pages, F for fullscreen, `#2` jumps to page 2). Source: [`docs/presentation/index.html`](docs/presentation/index.html).
 
