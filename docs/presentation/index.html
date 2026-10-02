@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kampung Futurist Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #070b12; --panel: #0e1520; --panel-2: #131c2a; --line: #1f2a3a; --ink: #eef2f7; --mute: #8d99ab;
+    --olive: #a7bd6c; --kopi: #e0a85e; --claude: #d97757; --ok: #5fd38d; --rose: #fb7185;
+    --sans: "Inter", -apple-system, "Helvetica Neue", sans-serif; --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; background: #000; overflow: hidden; color: var(--ink); font: 18px/1.45 var(--sans); }
+  /* Fixed 1920x1080 stage scaled to fit any screen. */
+  #stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: center; }
+  .page { position: absolute; inset: 0; background: var(--bg); padding: 48px 64px 40px; display: grid; grid-template-rows: auto 1fr;
+    gap: 26px; opacity: 0; pointer-events: none; transition: opacity .45s ease, transform .45s ease; transform: translateX(40px); }
+  .page.on { opacity: 1; pointer-events: auto; transform: none; }
+  .page.off-left { transform: translateX(-40px); }
+  .page::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(900px 520px at 85% 0%, rgba(224,168,94,.12), transparent 70%), radial-gradient(800px 500px at 0% 100%, rgba(167,189,108,.10), transparent 70%); }
+  header { display: flex; justify-content: space-between; align-items: flex-end; position: relative; }
+  .kicker { font: 700 16px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--kopi); }
+  h1 { font-size: 62px; line-height: 1.02; letter-spacing: -.02em; font-weight: 900; margin-top: 12px; }
+  h1 em { font-style: normal; color: var(--olive); } h1 b { color: var(--claude); }
+  .sub { color: var(--mute); font-size: 22px; margin-top: 8px; }
+  .pageno { font: 700 15px var(--mono); color: var(--mute); }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 22px 24px; position: relative; }
+  h2 { font: 700 13px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); margin-bottom: 14px; }
+
+  /* Page 1 */
+  .p1 { display: grid; grid-template-columns: 1fr 520px; gap: 24px; min-height: 0; position: relative; }
+  .player { display: flex; flex-direction: column; gap: 14px; min-height: 0; }
+  .tabs { display: flex; gap: 10px; }
+  .tab { flex: 1; text-align: left; background: var(--panel); border: 1px solid var(--line); color: var(--ink); border-radius: 14px; padding: 14px 18px;
+    cursor: pointer; font: inherit; transition: border-color .2s, background .2s, transform .15s; }
+  .tab:hover { transform: translateY(-2px); }
+  .tab.on { border-color: var(--kopi); background: var(--panel-2); box-shadow: 0 0 0 1px var(--kopi) inset; }
+  .tab small { display: block; font: 700 12px var(--mono); color: var(--kopi); letter-spacing: .1em; }
+  .tab span { font-weight: 800; font-size: 20px; }
+  .tab i { font-style: normal; color: var(--mute); font-size: 15px; display: block; }
+  video { width: 100%; aspect-ratio: 16/9; border-radius: 16px; background: #000; display: block; border: 1px solid var(--line); }
+  .side { display: flex; flex-direction: column; gap: 20px; min-height: 0; }
+  dl { display: grid; grid-template-columns: 92px 1fr; gap: 10px 14px; font-size: 18px; }
+  dt { color: var(--mute); } dd { color: var(--ink); }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .stat b { display: block; font-size: 40px; font-weight: 900; letter-spacing: -.02em; }
+  .stat span { color: var(--mute); font-size: 15px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { font: 500 14px/1 var(--mono); padding: 8px 11px; border-radius: 8px; background: var(--panel-2); border: 1px solid var(--line); color: #cfd7e3; }
+
+  /* Page 2 */
+  .p2 { display: grid; grid-template-columns: 1fr 560px; gap: 24px; min-height: 0; position: relative; }
+  .diagram { padding: 12px; display: flex; flex-direction: column; }
+  .diagram iframe { flex: 1; width: 100%; border: 0; border-radius: 12px; background: #020617; }
+  .diagram p { color: var(--mute); font-size: 14px; margin: 8px 6px 0; }
+  .flip { perspective: 1200px; cursor: pointer; height: 230px; }
+  .flip-in { position: relative; width: 100%; height: 100%; transition: transform .6s cubic-bezier(.2,.8,.2,1); transform-style: preserve-3d; }
+  .flip.on .flip-in { transform: rotateY(180deg); }
+  .face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 18px; padding: 22px 24px; border: 1px solid var(--line); }
+  .face.chat { background: var(--panel); } .face.code { background: #1b1210; border-color: rgba(217,119,87,.5); transform: rotateY(180deg); }
+  .face .verb { font-size: 56px; font-weight: 900; line-height: 1; margin: 6px 0 10px; }
+  .face.chat .verb { color: #f5ead7; } .face.code .verb { color: var(--claude); }
+  .face ul { padding-left: 18px; color: #d4dbe6; font-size: 17px; } .face li { margin: 3px 0; }
+  .hint { position: absolute; right: 18px; top: 18px; font: 700 12px var(--mono); color: var(--mute); }
+  details { border-top: 1px solid var(--line); padding: 10px 0; } details:first-of-type { border-top: 0; padding-top: 0; }
+  summary { cursor: pointer; font-weight: 800; font-size: 18px; list-style: none; display: flex; gap: 10px; align-items: baseline; }
+  summary::before { content: "+"; color: var(--kopi); font: 700 18px var(--mono); width: 14px; }
+  details[open] summary::before { content: "–"; }
+  details p { color: #c9d1dd; font-size: 16px; margin: 6px 0 0 24px; }
+  .cta { display: flex; align-items: center; gap: 18px; background: linear-gradient(90deg, rgba(224,168,94,.16), rgba(167,189,108,.10)); border-color: rgba(224,168,94,.45); }
+  .cmd { font: 700 38px var(--mono); color: var(--bg); background: var(--kopi); border-radius: 12px; padding: 4px 18px; white-space: nowrap; }
+  .cta a { color: var(--ink); font-weight: 800; text-decoration: none; border-bottom: 2px solid var(--kopi); }
+  .cta div { font-size: 17px; color: #d4dbe6; }
+
+  /* Nav */
+  nav { position: fixed; right: 18px; bottom: 16px; display: flex; gap: 8px; align-items: center; z-index: 9; }
+  nav button { background: rgba(14,21,32,.85); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; width: 40px; height: 36px;
+    font: 700 16px var(--mono); cursor: pointer; }
+  nav button:hover { border-color: var(--kopi); }
+  .dots { display: flex; gap: 6px; margin: 0 6px; } .dots i { width: 9px; height: 9px; border-radius: 50%; background: #3a4558; }
+  .dots i.on { background: var(--kopi); }
+  @media (prefers-reduced-motion: reduce) { .page, .flip-in, .tab { transition: none; } }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- PAGE 1 -->
+  <section class="page on" id="p1" aria-label="Page 1: Meet Marcus">
+    <header>
+      <div>
+        <div class="kicker">SMU MBAI · Class exercise · Virtual influencer</div>
+        <h1>Meet <em>Marcus Goh</em>, the Kampung Futurist</h1>
+        <div class="sub">A 38-year-old ex-hardware engineer who tests the newest AI on Singapore's toughest critics: void-deck uncles, kopitiam aunties, hawkers.</div>
+      </div>
+      <div class="pageno">01 / 02</div>
+    </header>
+    <div class="p1">
+      <div class="player">
+        <div class="tabs" role="tablist">
+          <button class="tab on" data-src="../../ep0-sizzle/final/kampung-futurist-15s.mp4" data-poster="../../ep0-sizzle/assets/poster.jpg">
+            <small>EP0 · 15s</small><span>The sizzle reel</span><i>void deck → kopitiam</i></button>
+          <button class="tab" data-src="../../explainers/final/kampung-futurist-ep1.mp4">
+            <small>EP1 · 40s</small><span>How Alan built me</span><i>Claude Code vs Claude Chat</i></button>
+          <button class="tab" data-src="../../explainers/final/kampung-futurist-ep2.mp4">
+            <small>EP2 · 33s</small><span>Type /init first</span><i>for the SMU Business AI cohort</i></button>
+        </div>
+        <video id="vid" src="../../ep0-sizzle/final/kampung-futurist-15s.mp4" poster="../../ep0-sizzle/assets/poster.jpg" controls playsinline preload="metadata"></video>
+      </div>
+      <div class="side">
+        <section class="card">
+          <h2>The persona</h2>
+          <dl>
+            <dt>Hook</dt><dd>"If Auntie can use it, it's worth your money."</dd>
+            <dt>Voice</dt><dd>Mid-low, easy-going, light Singaporean English</dd>
+            <dt>Look</dt><dd>Olive linen shirt, rimless glasses, G-Shock</dd>
+            <dt>World</dt><dd>Real heartland locations, real ambient sound</dd>
+            <dt>CTA</dt><dd>@kampungfuturist · "Try lah, on your next project"</dd>
+          </dl>
+        </section>
+        <section class="card">
+          <h2>By the numbers</h2>
+          <div class="stats">
+            <div class="stat"><b>3</b><span>episodes · 88s of video</span></div>
+            <div class="stat"><b>19</b><span>AI clips generated in Flow</span></div>
+            <div class="stat"><b>30</b><span>word-synced SFX hits</span></div>
+            <div class="stat"><b>1</b><span>prompt to start: plan mode</span></div>
+          </div>
+        </section>
+        <section class="card">
+          <h2>Stack</h2>
+          <div class="chips">
+            <span class="chip">Claude Code</span><span class="chip">Claude in Chrome</span><span class="chip">Google Flow · Omni</span>
+            <span class="chip">Flow Music</span><span class="chip">Remotion</span><span class="chip">ffmpeg</span>
+            <span class="chip">Whisper</span><span class="chip">archify</span>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 2 -->
+  <section class="page" id="p2" aria-label="Page 2: How I built him">
+    <header>
+      <div>
+        <div class="kicker">Under the hood · one plan, many tools</div>
+        <h1>How I built him with <b>Claude Code</b></h1>
+        <div class="sub">I wrote one brief and approved the spend; Claude Code did the interview, browser work, edit and QA. Click the diagram's views to walk it.</div>
+      </div>
+      <div class="pageno">02 / 02</div>
+    </header>
+    <div class="p2">
+      <section class="card diagram">
+        <iframe src="workflow.html" title="Interactive workflow: Alan, Claude Code, Google Flow, local tools" loading="lazy"></iframe>
+        <p>Interactive: try "Play story", the three guided views, or "Present". Built with /archify.</p>
+      </section>
+      <div class="side">
+        <div class="flip" id="flip" role="button" tabindex="0" aria-label="Flip: Claude Chat vs Claude Code">
+          <div class="flip-in">
+            <div class="face chat"><span class="hint">tap to flip ↻</span><h2>Claude Chat</h2><div class="verb">THINK</div>
+              <ul><li>Brainstorm the persona &amp; script</li><li>Draft copy, answer questions</li><li>You still do every step by hand</li></ul></div>
+            <div class="face code"><span class="hint">tap to flip ↻</span><h2>Claude Code</h2><div class="verb">DO</div>
+              <ul><li>Drove Flow in Chrome to make 19 clips</li><li>Wrote the edit, graphics &amp; SFX as code</li><li>Checked its own work: Whisper caught "ffmpeg" garbled</li></ul></div>
+          </div>
+        </div>
+        <section class="card">
+          <h2>What broke, and the fix</h2>
+          <details open><summary>My avatar kept disappearing</summary><p>Flow's agent rewrote prompts and dropped my face. Switching to direct mode, after a free test image, fixed it.</p></details>
+          <details><summary>AI speech went wrong</summary><p>"Kakis" became "Caucus", "try" doubled. Whisper transcripts flagged it, and I re-shot with simpler lines.</p></details>
+          <details><summary>Graphics hid faces</summary><p>I reviewed by timestamp; Claude moved cards to eye level or bottom and synced each pop-up to the spoken word.</p></details>
+          <details><summary>Fake text in AI footage</summary><p>Garbled signs and baked-in captions were blurred, covered or cut out.</p></details>
+        </section>
+        <section class="card cta">
+          <div class="cmd">&gt; /init</div>
+          <div>Your turn: open a project in Claude Code, type <b>/init</b>, then plan first.<br>
+            Code: <a href="https://github.com/Priest-MBAI/kampung-futurist" target="_blank" rel="noopener">github.com/Priest-MBAI/kampung-futurist</a></div>
+        </section>
+      </div>
+    </div>
+  </section>
+</div>
+
+<nav aria-label="Slides">
+  <button id="prev" aria-label="Previous page">←</button>
+  <div class="dots"><i class="on"></i><i></i></div>
+  <button id="next" aria-label="Next page">→</button>
+  <button id="fs" aria-label="Fullscreen" title="Fullscreen (F)">⤢</button>
+</nav>
+
+<script>
+  const stage = document.getElementById("stage");
+  const fit = () => { const s = Math.min(innerWidth / 1920, innerHeight / 1080);
+    stage.style.transform = `translate(-50%, -50%) scale(${s})`; };
+  addEventListener("resize", fit); fit();
+
+  const pages = [...document.querySelectorAll(".page")], dots = [...document.querySelectorAll(".dots i")];
+  let cur = 0;
+  const go = (i) => {
+    i = Math.max(0, Math.min(pages.length - 1, i)); if (i === cur) return;
+    document.getElementById("vid").pause();
+    pages.forEach((p, k) => { p.classList.toggle("on", k === i); p.classList.toggle("off-left", k < i); });
+    dots.forEach((d, k) => d.classList.toggle("on", k === i)); cur = i;
+  };
+  document.getElementById("prev").onclick = () => go(cur - 1);
+  document.getElementById("next").onclick = () => go(cur + 1);
+  document.getElementById("fs").onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+  addEventListener("keydown", (e) => {
+    if (e.target.closest && e.target.closest("iframe, video")) return;
+    if (["ArrowRight", "PageDown", " "].includes(e.key)) { e.preventDefault(); go(cur + 1); }
+    if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); go(cur - 1); }
+    if (e.key === "f" || e.key === "F") document.getElementById("fs").click();
+  });
+
+  // Deep link: index.html#2 opens page 2
+  if (location.hash === "#2") go(1);
+
+  // Episode switcher
+  const vid = document.getElementById("vid");
+  document.querySelectorAll(".tab").forEach((t) => t.onclick = () => {
+    document.querySelectorAll(".tab").forEach((x) => x.classList.toggle("on", x === t));
+    vid.poster = t.dataset.poster || ""; vid.src = t.dataset.src; vid.play().catch(() => {});
+  });
+
+  // Chat vs Code flip card
+  const flip = document.getElementById("flip");
+  const toggle = () => flip.classList.toggle("on");
+  flip.onclick = toggle; flip.onkeydown = (e) => { if (e.key === "Enter") toggle(); };
+</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kampung Futurist Summary</title>
+<style>
+  :root {
+    --bg: #05080f; --panel: #0c121d; --line: #1d2736; --ink: #e8edf4; --mute: #8b97a8;
+    --olive: #9fb36a; --kopi: #d9a35b; --ok: #34d399; --warn: #fbbf24; --rose: #fb7185;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; background: #000; overflow: hidden; }
+  body { display: grid; place-items: center; font: 16px/1.4 -apple-system, "SF Pro Text", "Helvetica Neue", sans-serif; color: var(--ink); }
+  /* Fixed 1920x1080 canvas, scaled to fit any window. */
+  .slide { width: 1920px; height: 1080px; background: var(--bg); padding: 40px 56px 32px; display: grid;
+    grid-template-rows: auto 1fr auto; gap: 20px; transform-origin: center; position: absolute; }
+  header { display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 18px; }
+  .kicker { font: 600 15px/1 ui-monospace, "SF Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--kopi); }
+  h1 { font-size: 56px; line-height: 1.02; letter-spacing: -.02em; margin-top: 10px; }
+  h1 em { font-style: normal; color: var(--olive); }
+  .hook { font-size: 21px; color: var(--mute); margin-top: 8px; }
+  .status { text-align: right; }
+  .pill { display: inline-flex; gap: 10px; align-items: center; padding: 10px 18px; border-radius: 99px; background: rgba(52,211,153,.12);
+    border: 1px solid rgba(52,211,153,.4); color: var(--ok); font-weight: 700; font-size: 18px; }
+  .pill i { width: 10px; height: 10px; border-radius: 50%; background: var(--ok); }
+  .status small { display: block; color: var(--mute); margin-top: 8px; font-size: 15px; }
+
+  main { display: grid; grid-template-columns: 430px 1fr 470px; gap: 22px; min-height: 0; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; }
+  h2 { font: 600 13px/1 ui-monospace, "SF Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--mute); margin-bottom: 12px; }
+  .col { display: flex; flex-direction: column; gap: 22px; min-height: 0; }
+  blockquote { font-size: 17px; line-height: 1.5; color: #cdd5e0; border-left: 3px solid var(--kopi); padding-left: 14px; }
+  blockquote b { color: var(--ink); }
+  dl { display: grid; grid-template-columns: 96px 1fr; gap: 9px 12px; font-size: 16px; }
+  dt { color: var(--mute); } dd { color: var(--ink); }
+
+  .diagram { padding: 16px 16px 10px; display: flex; flex-direction: column; }
+  .diagram iframe { flex: 1; width: 100%; border: 0; border-radius: 10px; background: #020617; }
+  .diagram p { color: var(--mute); font-size: 14px; margin-top: 8px; }
+
+  video { width: 100%; aspect-ratio: 16/9; border-radius: 10px; background: #000; display: block; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; margin-top: 12px; }
+  .stat b { display: block; font-size: 25px; letter-spacing: -.01em; }
+  .stat span { color: var(--mute); font-size: 13px; }
+  .note { font-size: 14px; color: #cdd5e0; line-height: 1.45; }
+  .note li { margin-left: 16px; margin-bottom: 3px; }
+  .warn { color: var(--warn); }
+
+  footer { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  footer .card { padding: 12px 16px; } footer h2 { margin-bottom: 9px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .chip { font: 500 13px/1 ui-monospace, "SF Mono", monospace; padding: 7px 10px; border-radius: 8px; background: #111a28; border: 1px solid var(--line); color: #cdd5e0; }
+</style>
+</head>
+<body>
+<div class="slide" id="slide">
+  <header>
+    <div>
+      <div class="kicker">MBAI class exercise · Virtual influencer · 15s sizzle reel</div>
+      <h1>The <em>Kampung Futurist</em>: Marcus Goh, 38</h1>
+      <div class="hook">Ex-hardware engineer who tests the newest AI on Singapore's toughest critics: void-deck uncles, kopitiam aunties, hawkers.</div>
+    </div>
+    <div class="status">
+      <span class="pill"><i></i>Delivered: 15.0s · 1080p · 16:9</span>
+      <small>Awaiting final human watch-and-listen review</small>
+    </div>
+  </header>
+
+  <main>
+    <div class="col">
+      <section class="card">
+        <h2>Original prompt</h2>
+        <blockquote>
+          Create my own <b>virtual influencer</b> with its own voice, styling, personality and a <b>unique factor</b> that compels people to follow.
+          A <b>15s 16:9 video</b> of him introducing himself, plus a <b>CTA</b>, like a sizzle reel.
+          <b>Real, natural location</b> with ambient noise and foley.<br><br>
+          <b>Done =</b> doesn't look AI-generated; viewers are captivated; well executed.
+        </blockquote>
+      </section>
+      <section class="card">
+        <h2>The persona</h2>
+        <dl>
+          <dt>Hook</dt><dd>"If Auntie can use it, it's worth your money."</dd>
+          <dt>Voice</dt><dd>Mid-low, easy-going, light Singaporean English</dd>
+          <dt>Styling</dt><dd>Olive linen shirt, rimless glasses, G-Shock</dd>
+          <dt>Location</dt><dd>HDB void deck → kopitiam next door</dd>
+          <dt>CTA</dt><dd>"Follow the Kampung Futurist. See you at the kopitiam!" + @kampungfuturist</dd>
+        </dl>
+      </section>
+    </div>
+
+    <section class="card diagram">
+      <h2>Workflow · Human / Claude Code / Google Flow</h2>
+      <iframe src="assets/workflow-embed.html" title="Swim-lane workflow diagram" loading="lazy"></iframe>
+      <p>Built with /archify (workflow v2, showcase profile: 9/9 checks, 0 errors, 0 warnings).</p>
+    </section>
+
+    <div class="col">
+      <section class="card">
+        <h2>Final cut</h2>
+        <video src="final/kampung-futurist-15s.mp4" poster="assets/poster.jpg" controls playsinline preload="metadata"></video>
+        <div class="stats">
+          <div class="stat"><b>≈ 48 min</b><span>active time, start → final export</span></div>
+          <div class="stat"><b>9 h 40 m</b><span>wall clock, incl. 8 h 52 m idle</span></div>
+          <div class="stat"><b>−14.1 LUFS</b><span>loudness · peak −1.5 dBFS</span></div>
+          <div class="stat"><b>30 credits</b><span>2 × Omni 1.1 Flash clips</span></div>
+        </div>
+      </section>
+      <section class="card note">
+        <h2>Conclusion</h2>
+        <ul>
+          <li><b>Status: complete.</b> 15.0s, 1920×1080, 24fps, H.264/AAC. Same face across both clips; real-looking HDB settings; no dialogue clipped.</li>
+          <li><span class="warn">Pivot:</span> Veo 3.1 Quality can't take character references, so we switched to Omni 1.1 Flash to keep Marcus's identity.</li>
+          <li><span class="warn">Friction:</span> Flow agent reCAPTCHA 503s, a stuck Chrome download, and ffmpeg without drawtext (solved with a Swift end card).</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <section class="card"><h2>Skills</h2><div class="chips">
+      <span class="chip">marketing:draft-content</span><span class="chip">karpathy-guidelines</span><span class="chip">gemini-api (cloned)</span><span class="chip">archify</span></div></section>
+    <section class="card"><h2>Google Flow</h2><div class="chips">
+      <span class="chip">Flow agent</span><span class="chip">Nano Banana portrait</span><span class="chip">Algieba voice</span><span class="chip">Omni 1.1 Flash</span><span class="chip">1080p upscale</span></div></section>
+    <section class="card"><h2>Claude Code tools</h2><div class="chips">
+      <span class="chip">AskUserQuestion interview</span><span class="chip">Claude in Chrome</span><span class="chip">Bash</span><span class="chip">plan mode</span><span class="chip">advisor review</span></div></section>
+    <section class="card"><h2>Local pipeline</h2><div class="chips">
+      <span class="chip">ffmpeg edit + loudnorm</span><span class="chip">Swift/AppKit end card</span><span class="chip">headless Chrome QA</span><span class="chip">no subagents</span></div></section>
+  </footer>
+</div>
+<script>
+  // Scale the fixed 1920x1080 slide to fit the window.
+  const fit = () => { const s = Math.min(innerWidth / 1920, innerHeight / 1080);
+    document.getElementById('slide').style.transform = `scale(${s})`; };
+  addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>

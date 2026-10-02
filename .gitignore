@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Regenerable build output
+explainers/graphics/out/
+explainers/graphics/node_modules
+explainers/qa/
+qa/
+
+# Archify sidecars (re-create with: node bin/archify.mjs visual-check ...)
+*.visual-check.*
+
+# Local secrets, just in case
+.env

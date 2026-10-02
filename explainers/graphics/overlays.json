@@ -1,0 +1,13 @@
+{
+ "ep1-intro":  {"kind":"intro","title":"How Alan built me","kicker":"EP1 · Claude Code vs Claude Chat","seconds":3.2},
+ "ep1-notreal":{"kind":"pop","title":"NOT REAL","kicker":"Claude Code ≠ Claude Chat","seconds":3},
+ "ep1-plan":   {"kind":"lower","kicker":"Step 1","title":"Start with a plan","seconds":2.35,"x":1430,"y":330},
+ "ep1-ticks":  {"kind":"ticks","kicker":"Claude Code, on its own:","items":["drove the browser","made the scenes","edited the video"],"times":[0.28,1.5,3.04],"side":"left","valign":"bottom","seconds":5.0},
+ "ep1-split":  {"kind":"split","times":[0.24,2.22,4.54],"side":"center","valign":"bottom","seconds":5.5},
+ "ep1-end":    {"kind":"end","title":"@kampungfuturist","kicker":"AI, tested in the heartlands.","seconds":2.25},
+ "ep2-intro":  {"kind":"intro","title":"Before anything, type /init","kicker":"EP2 · Claude Code & Codex","seconds":3.2},
+ "ep2-init":   {"kind":"pop","title":"/init","kicker":"your first command","seconds":1.95},
+ "ep2-auntie": {"kind":"pop","title":"AUNTIE APPROVED","kicker":"one command, done","seconds":3},
+ "ep2-stack":  {"kind":"stack","items":["/init","plan","build"],"times":[0.1,3.68,4.5],"seconds":5.0},
+ "ep2-cta":    {"kind":"cta","kicker":"SMU Business AI cohort","title":"Try Claude Code today","seconds":4.2}
+}

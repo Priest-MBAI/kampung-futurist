@@ -1,0 +1,45 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Kampung Futurist: Build Workflow",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    { "id": "human", "label": "Human" },
+    { "id": "claude", "label": "Claude Code" },
+    { "id": "flow", "label": "Google Flow" }
+  ],
+  "phases": [
+    { "id": "discover", "label": "Discover", "fromCol": 0, "toCol": 1 },
+    { "id": "create", "label": "Create", "fromCol": 2, "toCol": 3, "variant": "emphasis" },
+    { "id": "finish", "label": "Finish + verify", "fromCol": 4, "toCol": 5, "variant": "dashed" }
+  ],
+  "mainPath": ["brief", "interview", "persona", "character", "clips", "approve", "edit", "qa", "review"],
+  "nodes": [
+    { "id": "brief", "lane": "human", "col": 0, "type": "external", "label": "Class Brief", "sublabel": "15s intro + CTA", "width": 132 },
+    { "id": "interview", "lane": "claude", "col": 1, "type": "backend", "label": "Interview", "sublabel": "7 questions", "width": 132 },
+    { "id": "skills", "lane": "claude", "col": 0, "type": "database", "label": "Skill Setup", "sublabel": "clone gemini-api", "width": 132 },
+    { "id": "persona", "lane": "claude", "col": 2, "type": "backend", "label": "Persona Bible", "sublabel": "script + prompts", "width": 132 },
+    { "id": "character", "lane": "flow", "col": 2, "type": "cloud", "label": "Character", "sublabel": "portrait + voice", "tag": "Nano Banana", "width": 132 },
+    { "id": "clips", "lane": "flow", "col": 3, "type": "cloud", "label": "Two Clips", "sublabel": "Omni 1.1 Flash", "tag": "1080p upscale", "width": 132 },
+    { "id": "blocker", "lane": "flow", "col": 4, "type": "security", "label": "Blockers", "sublabel": "503 + no refs", "width": 132 },
+    { "id": "approve", "lane": "human", "col": 3, "type": "security", "label": "Approvals", "sublabel": "terms + downloads", "width": 132 },
+    { "id": "edit", "lane": "claude", "col": 4, "type": "messagebus", "label": "ffmpeg Edit", "sublabel": "trim, grade, card", "width": 132 },
+    { "id": "qa", "lane": "claude", "col": 5, "type": "backend", "label": "QA Checks", "sublabel": "probe, frames, LUFS", "width": 132 },
+    { "id": "review", "lane": "human", "col": 5, "type": "external", "label": "Final Review", "sublabel": "watch + judge", "width": 132 }
+  ],
+  "edges": [
+    { "id": "brief-interview", "from": "brief", "to": "interview", "label": "goal" },
+    { "id": "skills-interview", "from": "skills", "to": "interview", "variant": "dashed", "role": "branch" },
+    { "id": "interview-persona", "from": "interview", "to": "persona", "variant": "emphasis" },
+    { "id": "persona-character", "from": "persona", "to": "character", "label": "prompt" },
+    { "id": "character-clips", "from": "character", "to": "clips", "label": "@ref", "variant": "emphasis" },
+    { "id": "clips-blocker", "from": "clips", "to": "blocker", "label": "retry", "variant": "security", "role": "error" },
+    { "id": "clips-approve", "from": "clips", "to": "approve", "label": "15 cr each" },
+    { "id": "approve-edit", "from": "approve", "to": "edit", "label": "download", "variant": "emphasis" },
+    { "id": "edit-qa", "from": "edit", "to": "qa" },
+    { "id": "qa-review", "from": "qa", "to": "review", "label": "15.0s MP4", "variant": "emphasis" }
+  ]
+}

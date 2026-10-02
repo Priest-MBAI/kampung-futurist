@@ -1,0 +1,297 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "How Alan Built the Kampung Futurist",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "animation": "trace",
+    "views": [
+      {
+        "id": "plan",
+        "label": "1 \u00b7 Plan first",
+        "focus": [
+          "brief",
+          "plan",
+          "persona"
+        ],
+        "note": "One brief in plan mode: Claude Code interviews Alan, then writes Marcus's persona and script."
+      },
+      {
+        "id": "make",
+        "label": "2 \u00b7 Make it real",
+        "focus": [
+          "persona",
+          "character",
+          "clips",
+          "music",
+          "approve",
+          "graphics",
+          "edit"
+        ],
+        "note": "Claude Code drives Google Flow in the browser, Alan approves credits, and local tools cut and score the film."
+      },
+      {
+        "id": "refine",
+        "label": "3 \u00b7 Refine loop",
+        "focus": [
+          "edit",
+          "qa",
+          "feedback",
+          "approve",
+          "ship"
+        ],
+        "note": "Whisper and frame checks catch errors; Alan's timestamped notes trigger re-shoots until it ships."
+      }
+    ]
+  },
+  "lanes": [
+    {
+      "id": "human",
+      "label": "Alan"
+    },
+    {
+      "id": "claude",
+      "label": "Claude Code"
+    },
+    {
+      "id": "flow",
+      "label": "Google Flow"
+    },
+    {
+      "id": "tools",
+      "label": "Local tools"
+    }
+  ],
+  "phases": [
+    {
+      "id": "p-plan",
+      "label": "Plan",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "p-make",
+      "label": "Generate",
+      "fromCol": 2,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "p-finish",
+      "label": "Refine + ship",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "dashed"
+    }
+  ],
+  "mainPath": [
+    "brief",
+    "plan",
+    "persona",
+    "character",
+    "clips",
+    "approve",
+    "edit",
+    "qa",
+    "feedback",
+    "ship"
+  ],
+  "nodes": [
+    {
+      "id": "brief",
+      "lane": "human",
+      "col": 0,
+      "type": "external",
+      "label": "Class Brief",
+      "sublabel": "influencer + reel",
+      "width": 136
+    },
+    {
+      "id": "plan",
+      "lane": "claude",
+      "col": 0,
+      "type": "backend",
+      "label": "Plan Mode",
+      "sublabel": "7-question interview",
+      "width": 136
+    },
+    {
+      "id": "persona",
+      "lane": "claude",
+      "col": 1,
+      "type": "backend",
+      "label": "Persona + Script",
+      "sublabel": "Marcus Goh",
+      "width": 136
+    },
+    {
+      "id": "character",
+      "lane": "flow",
+      "col": 1,
+      "type": "cloud",
+      "label": "Character",
+      "sublabel": "face + voice",
+      "tag": "Nano Banana",
+      "width": 136
+    },
+    {
+      "id": "clips",
+      "lane": "flow",
+      "col": 2,
+      "type": "cloud",
+      "label": "Scene Clips",
+      "sublabel": "real locations",
+      "tag": "Omni 1.1 Flash",
+      "width": 136
+    },
+    {
+      "id": "approve",
+      "lane": "human",
+      "col": 2,
+      "type": "security",
+      "label": "Approvals",
+      "sublabel": "credits + downloads",
+      "width": 136
+    },
+    {
+      "id": "music",
+      "lane": "flow",
+      "col": 3,
+      "type": "cloud",
+      "label": "Theme Song",
+      "sublabel": "Flow Music",
+      "width": 136
+    },
+    {
+      "id": "graphics",
+      "lane": "tools",
+      "col": 3,
+      "type": "frontend",
+      "label": "Motion Graphics",
+      "sublabel": "Remotion pop-ups",
+      "width": 136
+    },
+    {
+      "id": "edit",
+      "lane": "tools",
+      "col": 4,
+      "type": "messagebus",
+      "label": "ffmpeg Edit",
+      "sublabel": "cut, SFX, duck",
+      "width": 136
+    },
+    {
+      "id": "qa",
+      "lane": "claude",
+      "col": 4,
+      "type": "backend",
+      "label": "QA Checks",
+      "sublabel": "Whisper + frames",
+      "width": 136
+    },
+    {
+      "id": "feedback",
+      "lane": "human",
+      "col": 4,
+      "type": "external",
+      "label": "Review Notes",
+      "sublabel": "timestamped fixes",
+      "width": 136
+    },
+    {
+      "id": "ship",
+      "lane": "human",
+      "col": 5,
+      "type": "external",
+      "label": "Class Showcase",
+      "sublabel": "EP0\u2013EP2 + GitHub",
+      "width": 136
+    }
+  ],
+  "edges": [
+    {
+      "id": "brief-plan",
+      "from": "brief",
+      "to": "plan",
+      "label": "one prompt"
+    },
+    {
+      "id": "plan-persona",
+      "from": "plan",
+      "to": "persona",
+      "variant": "emphasis"
+    },
+    {
+      "id": "persona-character",
+      "from": "persona",
+      "to": "character",
+      "label": "drives browser"
+    },
+    {
+      "id": "character-clips",
+      "from": "character",
+      "to": "clips",
+      "label": "@ref",
+      "variant": "emphasis"
+    },
+    {
+      "id": "clips-approve",
+      "from": "clips",
+      "to": "approve",
+      "label": "credits"
+    },
+    {
+      "id": "approve-edit",
+      "from": "approve",
+      "to": "edit",
+      "label": "download",
+      "variant": "emphasis"
+    },
+    {
+      "id": "music-edit",
+      "from": "music",
+      "to": "edit",
+      "label": "theme",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "id": "graphics-edit",
+      "from": "graphics",
+      "to": "edit",
+      "label": "overlays",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "id": "edit-qa",
+      "from": "edit",
+      "to": "qa"
+    },
+    {
+      "id": "qa-feedback",
+      "from": "qa",
+      "to": "feedback",
+      "label": "draft cut"
+    },
+    {
+      "id": "feedback-reshoot",
+      "from": "feedback",
+      "to": "approve",
+      "label": "re-shoot",
+      "variant": "security",
+      "role": "return",
+      "fromSide": "top",
+      "toSide": "top",
+      "route": "up-channel"
+    },
+    {
+      "id": "feedback-ship",
+      "from": "feedback",
+      "to": "ship",
+      "label": "approved",
+      "variant": "emphasis"
+    }
+  ]
+}
